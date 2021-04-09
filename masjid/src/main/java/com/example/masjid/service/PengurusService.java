@@ -49,9 +49,15 @@ public class PengurusService {
 		
 		List<PengurusEntity> list = pengurusRepository.findAll();
 		Map<String, Object> map = new HashMap<>();
-		map.put("statusCode", 200);
-		map.put("message", "success");
-		map.put("data", list);
+		
+		if(list.isEmpty()) {
+			map.put("statusCode", 400);
+			map.put("message", "user is null");
+		}else {
+			map.put("statusCode", 200);
+			map.put("message", "success");
+			map.put("data", list);
+		}
 		
 		return map;
 	}
@@ -60,11 +66,16 @@ public class PengurusService {
 	public Map<String, Object> filterPengurus(String login_id){
 		PengurusEntity data = pengurusRepository.filter(login_id);
 		Map<String, Object> map = new HashMap<>();
-		map.put("statusCode", 200);
-		map.put("message", "success");
-		map.put("data", data);
 		
-		
+		if(data == null) {
+			map.put("statusCode", 404);
+			map.put("message", "user is not found");
+		}else {
+			map.put("statusCode", 200);
+			map.put("message", "success");
+			map.put("data", data);
+		}
+			
 		return map;
 	}
 

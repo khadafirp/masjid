@@ -22,9 +22,15 @@ public class LoginService {
 	public Map<String, Object> showAll(){
 		List<LoginEntity> list = loginRepository.findAll();
 		Map<String, Object> map = new HashMap<>();
-		map.put("statusCode", 200);
-		map.put("message", "success");
-		map.put("data", list);
+		
+		if(list.isEmpty()) {
+			map.put("statusCode", 400);
+			map.put("message", "data is null");
+		}else {
+			map.put("statusCode", 200);
+			map.put("message", "success");
+			map.put("data", list);
+		}
 		
 		return map;
 	}
@@ -50,9 +56,14 @@ public class LoginService {
 	public Map<String, Object> login(String email, String password){
 		LoginEntity loginEntity = loginRepository.login(email, password);
 		Map<String, Object> map = new HashMap<>();
-		map.put("statusCode", 200);
-		map.put("message", "success");
-		map.put("data", loginEntity);
+		if(loginEntity == null) {
+			map.put("statusCode", 404);
+			map.put("message", "something wrong with your email or password");
+		}else {
+			map.put("statusCode", 200);
+			map.put("message", "success");
+			map.put("data", loginEntity);
+		}
 		return map;
 	}
 
