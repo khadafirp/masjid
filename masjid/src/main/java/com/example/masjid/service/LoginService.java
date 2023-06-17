@@ -3,6 +3,7 @@ package com.example.masjid.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -17,6 +18,9 @@ public class LoginService {
 	
 	@Autowired
 	private LoginRepository loginRepository;
+	
+	@Autowired
+	private ValidationService validationService;
 	
 	@Transactional
 	public Map<String, Object> showAll(){
@@ -54,12 +58,19 @@ public class LoginService {
 	
 	@Transactional
 	public Map<String, Object> login(String email, String password){
+		Map<String, Object> validasi = new HashMap<String, Object>();
+		validasi.put("email", email);
+		validasi.put("password", password);
+		
+		validationService.validate(validasi);
+		
 		LoginEntity loginEntity = loginRepository.login(email, password);
 		Map<String, Object> map = new HashMap<>();
 		if(loginEntity == null) {
 			map.put("statusCode", 404);
 			map.put("message", "something wrong with your email or password");
 		}else {
+			map.put("token", UUID.randomUUID().toString());
 			map.put("statusCode", 200);
 			map.put("message", "success");
 			map.put("data", loginEntity);

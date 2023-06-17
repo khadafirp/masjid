@@ -13,13 +13,13 @@ public class JeniskasEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name = "id")
 	private int id;
 	
-	@Column
-	private int jeniskas_id;
+	@Column(name = "jenis_kas_id")
+	private String jenis_kas_id;
 	
-	@Column
+	@Column(name = "jenis")
 	private String jenis;
 
 	public int getId() {
@@ -30,12 +30,12 @@ public class JeniskasEntity {
 		this.id = id;
 	}
 
-	public int getJeniskas_id() {
-		return jeniskas_id;
+	public String getJenis_kas_id() {
+		return jenis_kas_id;
 	}
 
-	public void setJeniskas_id(int jeniskas_id) {
-		this.jeniskas_id = jeniskas_id;
+	public void setJenis_kas_id(String jenis_kas_id) {
+		this.jenis_kas_id = jenis_kas_id;
 	}
 
 	public String getJenis() {
