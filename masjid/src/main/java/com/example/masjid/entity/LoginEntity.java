@@ -30,6 +30,17 @@ public class LoginEntity {
 	
 	@Column(name = "is_active")
 	private int is_active;
+	
+	@Column(name = "token")
+	private String token;
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public int getIs_active() {
 		return is_active;

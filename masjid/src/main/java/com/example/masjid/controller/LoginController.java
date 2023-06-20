@@ -51,14 +51,14 @@ public class LoginController {
 		return map;
 	}
 
-	@GetMapping("/login")
+	@PostMapping("/login")
 	@ResponseBody
 	public Map<String, Object> login(@RequestParam (name = "email") String email, @RequestParam (name = "password") String password){
-		Map<String, Object> validasi = new HashMap<String, Object>();
-		validasi.put("email", email);
-		validasi.put("password", password);
-		
-		validationService.validate(validasi);
+//		Map<String, Object> validasi = new HashMap<String, Object>();
+//		validasi.put("email", email);
+//		validasi.put("password", password);
+//		
+//		validationService.validate(validasi);
 		
 		Map<String, Object> map = loginService.login(
 			email,

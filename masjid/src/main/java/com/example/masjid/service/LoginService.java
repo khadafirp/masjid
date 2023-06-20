@@ -20,6 +20,9 @@ public class LoginService {
 	private LoginRepository loginRepository;
 	
 	@Autowired
+	private LoginRepository loginRepositoryDua;
+	
+	@Autowired
 	private ValidationService validationService;
 	
 	@Transactional
@@ -58,11 +61,13 @@ public class LoginService {
 	
 	@Transactional
 	public Map<String, Object> login(String email, String password){
-		Map<String, Object> validasi = new HashMap<String, Object>();
-		validasi.put("email", email);
-		validasi.put("password", password);
-		
-		validationService.validate(validasi);
+//		Map<String, Object> validasi = new HashMap<String, Object>();
+//		validasi.put("email", email);
+//		validasi.put("password", password);
+//		
+//		validationService.validate(validasi);
+//		
+//		String token = UUID.randomUUID().toString();
 		
 		LoginEntity loginEntity = loginRepository.login(email, password);
 		Map<String, Object> map = new HashMap<>();
@@ -70,7 +75,25 @@ public class LoginService {
 			map.put("statusCode", 404);
 			map.put("message", "something wrong with your email or password");
 		}else {
-			map.put("token", UUID.randomUUID().toString());
+//			Map<String, Object> backup = new HashMap<String, Object>();
+//			backup.put("email", loginEntity.getEmail());
+//			backup.put("password", loginEntity.getPassword());
+//			backup.put("level", loginEntity.getLevel().toString());
+//			backup.put("login_id", loginEntity.getLogin_id());
+			
+//			loginRepository.deleteById(loginEntity.getId());
+//			
+//			LoginEntity loginEntityDua = new LoginEntity();
+//			loginEntityDua.setEmail("adminmasjid@gmail.com");
+//			loginEntityDua.setPassword("rahasia");
+//			loginEntityDua.setLevel("1");
+//			loginEntityDua.setLogin_id("adminmasjidkhusus");
+//			loginEntityDua.setIs_active(1);
+//			loginEntityDua.setToken(token);
+//			
+//			loginRepositoryDua.save(loginEntity);
+		
+//			map.put("token", token);
 			map.put("statusCode", 200);
 			map.put("message", "success");
 			map.put("data", loginEntity);
