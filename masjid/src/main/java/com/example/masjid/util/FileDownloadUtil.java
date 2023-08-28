@@ -12,8 +12,8 @@ public class FileDownloadUtil {
     private Path foundFile;
      
     public Resource getFileAsResource(String url) throws IOException {
-        Path dirPath = Paths.get(url);
-         
+    	Path dirPath = Paths.get("fileupload/kegiatan/fotokegiatan");
+        
         Files.list(dirPath).forEach(file -> {
             if (file.getFileName().toString().startsWith(url)) {
                 foundFile = file;

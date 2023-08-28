@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,7 @@ public class KegiatanController {
 	@Autowired
 	private KegiatanService kegiatanService;
 	
-	@PostMapping(value = "/test")
+	@PostMapping(value = "/tambah")
 	@ResponseBody
 	public Map<String, Object> test(
 		@RequestParam(value = "title") String title,
@@ -57,15 +58,21 @@ public class KegiatanController {
 		return map;
 	}
 	
+	@GetMapping("/all")
+	@ResponseBody
+	public Map<String, Object> allKegiatan() throws IOException{
+		return kegiatanService.allKegiatan();
+	}
+	
 	@GetMapping("/foto/{url}")
 	@ResponseBody
-	public Map<String, Object> downloadFoto(@PathVariable("url") String url) throws IOException{
-		
-		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("statusCode", HttpStatus.OK);
-		response.put("message", "success");
-		response.put("data", kegiatanService.findKegiatan(url));
-		
-		return response;
+	public ResponseEntity<?> downloadFoto(@PathVariable("url") String url) throws IOException{
+		return kegiatanService.findKegiatan(url);
+	}
+	
+	@PostMapping("/findKegiatan")
+	@ResponseBody
+	public Map<String, Object> findKegiatan(@RequestParam(name = "id") int id) throws IOException {
+		return kegiatanService.findKegiatan(id);
 	}
 }

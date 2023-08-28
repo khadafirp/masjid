@@ -35,7 +35,7 @@ public class KegiatanService {
 		String fileName = StringUtils.cleanPath(kegiatanDto.getFile().getOriginalFilename());
         long size = kegiatanDto.getFile().getSize();
         String fileCode = RandomStringUtils.randomAlphanumeric(8);
-        String pathFile = "fileupload/" + "kegiatan/fotokegiatan/" + fileCode + "-" + fileName;
+        String pathFile = "http://localhost:1908/almuhajirin/kegiatan/foto/" + fileCode + "-" + fileName;
         
         FileUploadUtil.saveFile(fileName, "kegiatan", "", fileCode, kegiatanDto.getFile());
         
@@ -60,6 +60,15 @@ public class KegiatanService {
 	}
 	
 	@Transactional
+	public Map<String, Object> allKegiatan() throws IOException{
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("statusCode", HttpStatus.OK);
+		response.put("message", "sukses");
+		response.put("data", kegiatanRepository.findAll());
+		return response;
+	}
+	
+	@Transactional
 	public ResponseEntity<?> findKegiatan(String url) throws IOException{
 		FileDownloadUtil downloadUtil = new FileDownloadUtil();
         
@@ -81,5 +90,21 @@ public class KegiatanService {
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, headerValue)
                 .body(resource);       
+	}
+	
+	@Transactional
+	public Map<String, Object> findKegiatan(int id) throws IOException{
+		Map<String, Object> response = new HashMap<String, Object>();
+		
+		if(kegiatanRepository.findById(id).isEmpty()) {
+			response.put("statusCode", 404);
+			response.put("message", "data tidak ditemukan");
+		} else {
+			response.put("statusCode", 200);
+			response.put("message", "sukses");
+			response.put("data", kegiatanRepository.findById(id));
+		}
+		
+		return response;
 	}
 }
