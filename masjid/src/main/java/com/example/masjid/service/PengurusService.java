@@ -17,7 +17,6 @@ import com.example.masjid.repository.PengurusRepository;
 @Service
 public class PengurusService {
 	
-	@SuppressWarnings("unused")
 	@Autowired
 	private PengurusRepository pengurusRepository;
 	
