@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadUtil {
     public static String saveFile(String fileName, String kategori, String idUser, String fileCode, MultipartFile multipartFile)
             throws IOException {
-        Path uploadPath = Paths.get("fileupload/" + kategori + "/" + (kategori == "kegiatan" ? "fotokegiatan/" : ("fotouser/" + idUser)));
+        Path uploadPath = Paths.get("fileupload/" + kategori + "/" + (kategori == "kegiatan" ? "fotokegiatan/" : ("fotopengurus/" + idUser)));
           
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);

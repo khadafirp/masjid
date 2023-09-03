@@ -9,6 +9,5 @@ import com.example.masjid.entity.PengurusEntity;
 
 @Repository
 public interface PengurusRepository extends JpaRepository<PengurusEntity, Integer> {
-	@Query("SELECT s FROM PengurusEntity s WHERE s.login_id=:login_id")
-    public PengurusEntity filter(@RequestParam("login_id") String login_id);
+	
 }
